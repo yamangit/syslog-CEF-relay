@@ -4,8 +4,7 @@ syslog formated log to CEF (RFC5424). It will conver the syslog default syslog f
 # Instruaction and Information
 |    S.N     | Container Name     | Purpose                |   Port     |  Protocol |
 |----------- |--------------------|------------------------|------------|-----------|
-| 1          |  relay             |   To convert default   |  20514     |  UDP/TCP  |
-                                      syslog data to CEF                      
+| 1          |  relay             |   To convert default  syslog data to CEF |  20514     |  UDP/TCP  |                      
 |------------|--------------------|------------------------|------------|-----------|
 | 2          |   reciever         |   Enpoint where CEF    |  30514     |  UDP/TCP  |
 |            |                    |   log format is needed |            |           |
