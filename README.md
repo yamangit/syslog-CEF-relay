@@ -1,5 +1,5 @@
 # syslog-CEF-relay
-syslog formated log to CEF (RFC5424). It will conver the syslog default syslog formatted log to CEF (RFC 5424) log. 
+It converts the syslog default formatted log to CEF (RFC 5424) log. 
 
 # Instruaction and Information
 
