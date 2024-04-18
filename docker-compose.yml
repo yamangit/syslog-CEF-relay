@@ -1,0 +1,27 @@
+services:
+  reciever:
+    build:
+      context: .
+      dockerfile: Dockerfile.reciever
+    container_name: reciever
+    ports:
+      - "30514:30514"
+    volumes:
+      - ./reciever.conf:/etc/rsyslog.conf
+    networks:
+      - syslog-networks
+  
+  relay:
+    build:
+      context: .
+      dockerfile: Dockerfile.relay
+    container_name: relay
+    ports:
+      - "20514:20514"
+    volumes:
+      - ./relay.conf:/etc/rsyslog.conf
+    networks:
+      - syslog-networks
+
+networks:
+  syslog-networks:
