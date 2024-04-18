@@ -2,24 +2,27 @@
 syslog formated log to CEF (RFC5424). It will conver the syslog default syslog formatted log to CEF (RFC 5424) log. 
 
 # Instruaction and Information
+
 |    S.N     | Container Name     | Purpose                |   Port     |  Protocol |
 |----------- |--------------------|------------------------|------------|-----------|
 | 1          |  relay             |   To convert default  syslog data to CEF |  20514     |  UDP/TCP  |                      
-|------------|--------------------|------------------------|------------|-----------|
 | 2          |   reciever         |   Enpoint where CEF log format is needed |  30514     |  UDP/TCP  |
 
 
-### Clone the Repo
+### 1) Clone the Repo
 
 ```bash
 git clone https://github.com/yamangit/syslog-CEF-relay.git
 cd syslog-CEF-relay
 ```
-### Run the docker compose 
+### 2) Run the docker compose 
+
 ```bash
 docker compose up -d
 ```
-### To check docker status
+
+### 3) To check docker status
+
 ```bash
 docker ps
 
@@ -28,19 +31,26 @@ CONTAINER ID   IMAGE             COMMAND                  CREATED          STATU
 5698cff1480e   syslog-relay      "/usr/sbin/rsyslogd …"   29 seconds ago   Up 29 seconds   0.0.0.0:20514->20514/tcp, :::20514->20514/tcp   relay
 
 ```
-### Go to the reciever container
+
+### 4) Go to the reciever container
+
 ```bash
 docker exec -it reciever bash
 
 root@491613d1811e:/#
 ```
-### Run the tail command
+
+### 5) Run the tail command
+
 ```bash
 root@491613d1811e:/# tail -f /var/log/syslog.cef.log
 ```
+
 #### Output:
+
 ```bash
-root@491613d1811e:/# tail -f /var/log/syslog.cef.log 
+root@491613d1811e:/# tail -f /var/log/syslog.cef.log
+
 2024-04-18T22:57:43.131678+05:45 blink kernel CEF:0|kern|info|kernel| br-ce2e2d75e3ae: port 1(vethd47ebd2) entered blocking state
 2024-04-18T22:57:43.131679+05:45 blink kernel CEF:0|kern|info|kernel| br-ce2e2d75e3ae: port 1(vethd47ebd2) entered forwarding state
 2024-04-18T22:57:43.131679+05:45 blink kernel CEF:0|kern|info|kernel| br-ce2e2d75e3ae: port 1(vethd47ebd2) entered disabled state
@@ -64,15 +74,19 @@ root@491613d1811e:/# tail -f /var/log/syslog.cef.log
 2024-04-18T22:59:52.947675+05:45 blink kernel CEF:0|kern|info|kernel| eth0: renamed from vethbf2d96a
 2024-04-18T23:00:22.556242+05:45 blink rsyslogd-2359 CEF:0|syslog|info|rsyslogd-2359|action 'action-7-builtin:omfwd' resumed (module 'builtin:omfwd') [v8.2402.0 try https://www.rsyslog.com/e/2359 ]
 ```
-### Test the custom log from your host machine or otherside
+
+### 6) Test the custom log from your host machine or otherside
+
 ```bash
 echo -n "<14> Test TCP syslog message" | nc -w1 localhost 20514
 
 ```
-### Check the line in reciever container for log reception in CEF format
+### 7) Check the line in reciever container for log reception in CEF format
+
 ```bash
 root@491613d1811e:/# tail -f /var/log/syslog.cef.log
 ```
+
 #### Output:
 ```bash
 2024-04-18T17:15:53.603302+00:00 172.27.0.1 - CEF:0|user|info|| Test TCP syslog message
